@@ -3,4 +3,4 @@ Read more - https://projecteuler.net/
 
 [Russian version](https://euler.jakumo.org/problems.html)
 ### Currently:
-- [x] 3 problems solved
+- [x] 7 problems solved
