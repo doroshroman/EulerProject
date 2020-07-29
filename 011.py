@@ -2,6 +2,7 @@
 
 import utils
 from pprint import pprint
+from collections import deque
 
 def max_prod(digits, shift=4):
     max_prod = 1
@@ -55,11 +56,24 @@ if __name__ == "__main__":
     for i in range(0, len(rows), size):
         matrix.append(rows[i:i+size])
     
-    diagonal = []
+    right_diagonal = []
     for i in range(size * 2):
-        for j in range(0, i + 1):
+        for j in range(i + 1):
             k = i - j
             if k < size and j < size:
-                diagonal.append(matrix[k][j])
+                right_diagonal.append(matrix[k][j])
 
-    print(max(max_prod(rows), max_prod(cols), max_prod(diagonal)))
+    left_diagonal = deque()
+    # Other diagonal diagonal direction
+    for i in range(size):
+        for j in range(i + 1):
+            k = i - j if i >= j else j - i
+            ind_x, ind_y = j, (size - 1) - k
+            if ind_x != ind_y:
+                left_diagonal.appendleft(matrix[ind_x][ind_y])
+                left_diagonal.append(matrix[ind_y][ind_x])
+    # Main diagonal
+    for i in range(size):
+        left_diagonal.append(matrix[i][i])
+    
+    print(max(max_prod(rows), max_prod(cols), max_prod(right_diagonal), max_prod(list(left_diagonal))))
